@@ -1,0 +1,58 @@
+{
+  "attractions": [
+    {
+      "name": "Burj Khalifa",
+      "area": "Downtown Dubai",
+      "category": "See",
+      "tags": ["modern architecture", "must-do", "crowded"]
+    },
+    {
+      "name": "The Dubai Mall",
+      "area": "Downtown Dubai",
+      "category": "Buy",
+      "tags": ["shopping", "food", "indoor", "crowded"]
+    },
+    {
+      "name": "Dubai Creek (Abra Ride)",
+      "area": "Deira / Bur Dubai",
+      "category": "Do",
+      "tags": ["culture", "traditional", "budget", "authentic"]
+    },
+    {
+      "name": "Gold Souk",
+      "area": "Deira",
+      "category": "Buy",
+      "tags": ["traditional", "shopping", "authentic"]
+    },
+    {
+      "name": "Desert Safari",
+      "area": "Desert",
+      "category": "Do",
+      "tags": ["adventure", "outdoor", "cultural dinner"]
+    },
+    {
+      "name": "Museum of the Future",
+      "area": "Downtown Dubai",
+      "category": "See",
+      "tags": ["modern architecture", "museum", "indoor"]
+    },
+    {
+      "name": "Jumeirah Public Beach",
+      "area": "Jumeirah",
+      "category": "Do",
+      "tags": ["beach", "relaxing", "outdoor"]
+    },
+    {
+      "name": "Al Fahidi Historical Neighbourhood",
+      "area": "Bur Dubai",
+      "category": "See",
+      "tags": ["culture", "traditional", "quiet"]
+    },
+    {
+      "name": "Meena Bazaar",
+      "area": "Bur Dubai",
+      "category": "Eat",
+      "tags": ["food", "authentic", "budget", "traditional"]
+    }
+  ]
+}

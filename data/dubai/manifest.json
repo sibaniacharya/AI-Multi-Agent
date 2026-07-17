@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-07-12T06:16:31.490483Z",
+  "source_url": "https://en.wikivoyage.org/wiki/Dubai",
+  "files": [
+    "areas.json",
+    "attractions.json",
+    "price_bands.json",
+    "transit_matrix.json",
+    "wikivoyage_api.json",
+    "wikivoyage_raw.md"
+  ]
+}

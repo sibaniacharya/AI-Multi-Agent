@@ -1,0 +1,12 @@
+{
+  "matrix": [
+    {"from": "Downtown Dubai", "to": "Dubai Marina", "time_mins": 35, "mode": "Metro"},
+    {"from": "Downtown Dubai", "to": "Deira", "time_mins": 25, "mode": "Metro"},
+    {"from": "Downtown Dubai", "to": "Bur Dubai", "time_mins": 20, "mode": "Metro"},
+    {"from": "Downtown Dubai", "to": "Jumeirah", "time_mins": 15, "mode": "Taxi"},
+    {"from": "Dubai Marina", "to": "Deira", "time_mins": 55, "mode": "Metro"},
+    {"from": "Dubai Marina", "to": "Jumeirah", "time_mins": 20, "mode": "Taxi"},
+    {"from": "Deira", "to": "Bur Dubai", "time_mins": 10, "mode": "Abra (Boat)"},
+    {"from": "Bur Dubai", "to": "Jumeirah", "time_mins": 25, "mode": "Taxi"}
+  ]
+}

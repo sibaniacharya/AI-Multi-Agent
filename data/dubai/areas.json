@@ -1,0 +1,24 @@
+{
+  "areas": [
+    {
+      "name": "Downtown Dubai",
+      "description": "Home to the Burj Khalifa and Dubai Mall. High-end dining and shopping, heavily modern."
+    },
+    {
+      "name": "Dubai Marina",
+      "description": "A waterfront district with high-rise apartments, cafes, and a beautiful promenade."
+    },
+    {
+      "name": "Deira",
+      "description": "The old commercial center, known for the Gold and Spice Souks. More traditional and budget-friendly."
+    },
+    {
+      "name": "Bur Dubai",
+      "description": "Historic district located on the Dubai Creek. Great for traditional food and culture."
+    },
+    {
+      "name": "Jumeirah",
+      "description": "Coastal residential area with beautiful public beaches, low-rise villas, and luxury resorts."
+    }
+  ]
+}
