@@ -14,9 +14,19 @@ load_dotenv()
 # We import the graph after loading dotenv so any module-level env checks pass (though our agents fetch dynamically, it's safer)
 from src.graph import build_travel_graph
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(
     title="AI Travel Planner API",
     description="Multi-agent graph workflow for generating travel itineraries."
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins for development/production simplicity
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -123,4 +133,5 @@ async def transcribe_audio(audio: UploadFile = File(...)):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

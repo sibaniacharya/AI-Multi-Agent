@@ -1,3 +1,6 @@
+// Define backend URL (Update with Railway URL when deployed)
+const API_BASE_URL = window.location.hostname === 'localhost' ? '' : 'https://YOUR_RAILWAY_URL_HERE.up.railway.app';
+
 document.getElementById('trip-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const promptInput = document.getElementById('prompt');
@@ -16,7 +19,7 @@ document.getElementById('trip-form').addEventListener('submit', function(e) {
     submitBtn.style.opacity = '0.7';
 
     // Start SSE Connection
-    const eventSource = new EventSource(`/stream-plan-trip?prompt=${encodeURIComponent(promptText)}`);
+    const eventSource = new EventSource(`${API_BASE_URL}/stream-plan-trip?prompt=${encodeURIComponent(promptText)}`);
 
     const nodeDescriptions = {
         'orchestrator': 'Orchestrator is extracting constraints and preferences...',
@@ -200,7 +203,7 @@ micBtn.addEventListener('click', async () => {
                 formData.append('audio', audioBlob, 'recording.webm');
                 
                 try {
-                    const response = await fetch('/transcribe', {
+                    const response = await fetch(`${API_BASE_URL}/transcribe`, {
                         method: 'POST',
                         body: formData
                     });
