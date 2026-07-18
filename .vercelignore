@@ -1,5 +1,0 @@
-*.py
-src/
-requirements.txt
-pyproject.toml
-Procfile
