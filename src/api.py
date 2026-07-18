@@ -78,36 +78,51 @@ async def stream_plan_trip(prompt: str):
     }
 
     async def event_generator():
-        try:
-            # Use .astream() which is asynchronous and won't block the event loop
-            async for output in graph.astream(initial_state):
-                for key, value in output.items():
-                    # key is the node name (e.g., 'orchestrator', 'destination', etc.)
-                    # Yield a JSON event
-                    event_data = {
-                        "node": key,
-                        "status": "completed",
-                        "retry_count": value.get("retry_count", 0)
-                    }
-                    
-                    # If this is the synthesize node, it might contain the final itinerary
-                    if "itinerary" in value and value["itinerary"]:
-                        # Convert Pydantic object if it's there
-                        itinerary_dump = value["itinerary"].model_dump() if hasattr(value["itinerary"], "model_dump") else value["itinerary"]
-                        event_data["itinerary"] = itinerary_dump
-                    
-                    if "review" in value and value["review"]:
-                        review_dump = value["review"].model_dump() if hasattr(value["review"], "model_dump") else value["review"]
-                        event_data["qa_review"] = review_dump
+        queue = asyncio.Queue()
+        
+        async def run_graph():
+            try:
+                async for output in graph.astream(initial_state):
+                    await queue.put({"type": "data", "payload": output})
+                await queue.put({"type": "done"})
+            except Exception as e:
+                await queue.put({"type": "error", "payload": str(e)})
+                
+        task = asyncio.create_task(run_graph())
+        
+        while True:
+            try:
+                # Wait for next item from the graph, timeout after 5 seconds to send a keep-alive
+                msg = await asyncio.wait_for(queue.get(), timeout=5.0)
+                
+                if msg["type"] == "done":
+                    yield f"data: {json.dumps({'node': 'DONE', 'status': 'completed'})}\n\n"
+                    break
+                elif msg["type"] == "error":
+                    yield f"data: {json.dumps({'error': msg['payload']})}\n\n"
+                    break
+                else:
+                    output = msg["payload"]
+                    for key, value in output.items():
+                        event_data = {
+                            "node": key,
+                            "status": "completed",
+                            "retry_count": value.get("retry_count", 0)
+                        }
+                        
+                        if "itinerary" in value and value["itinerary"]:
+                            itinerary_dump = value["itinerary"].model_dump() if hasattr(value["itinerary"], "model_dump") else value["itinerary"]
+                            event_data["itinerary"] = itinerary_dump
+                        
+                        if "review" in value and value["review"]:
+                            review_dump = value["review"].model_dump() if hasattr(value["review"], "model_dump") else value["review"]
+                            event_data["qa_review"] = review_dump
 
-                    yield f"data: {json.dumps(event_data)}\n\n"
-                    # Small sleep to ensure chunks are flushed properly
-                    await asyncio.sleep(0.1)
-            
-            # Send an explicit completion event
-            yield f"data: {json.dumps({'node': 'DONE', 'status': 'completed'})}\n\n"
-        except Exception as e:
-            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+                        yield f"data: {json.dumps(event_data)}\n\n"
+                        
+            except asyncio.TimeoutError:
+                # Send a keep-alive comment to keep mobile connections open
+                yield ": keepalive\n\n"
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")
 

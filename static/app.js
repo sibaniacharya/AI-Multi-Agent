@@ -79,8 +79,12 @@ document.getElementById('trip-form').addEventListener('submit', function(e) {
     };
 
     eventSource.onerror = function(err) {
-        appendLog('System', 'Connection to server lost or interrupted.', 'error');
-        closeConnection(eventSource, submitBtn);
+        if (eventSource.readyState === EventSource.CLOSED) {
+            appendLog('System', 'Connection to server closed.', 'error');
+            closeConnection(eventSource, submitBtn);
+        } else {
+            console.log('SSE connection error, attempting to reconnect...');
+        }
     };
 });
 
@@ -268,7 +272,9 @@ micBtn.addEventListener('click', async () => {
             };
 
             mediaRecorder.onstop = async () => {
-                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                const mimeType = mediaRecorder.mimeType || 'audio/webm';
+                const fileExt = mimeType.includes('mp4') ? 'mp4' : (mimeType.includes('mpeg') ? 'mpeg' : 'webm');
+                const audioBlob = new Blob(audioChunks, { type: mimeType });
                 audioChunks = [];
                 
                 // Show loading state on mic button
@@ -278,7 +284,7 @@ micBtn.addEventListener('click', async () => {
                 
                 // Send to backend
                 const formData = new FormData();
-                formData.append('audio', audioBlob, 'recording.webm');
+                formData.append('audio', audioBlob, `recording.${fileExt}`);
                 
                 try {
                     const response = await fetch(`${API_BASE_URL}/transcribe`, {
