@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura Concierge - Your Dubai Itinerary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c6c6c6",
+                        "primary": "#c6c6c6",
+                        "background": "#131315",
+                        "inverse-primary": "#5e5e5e",
+                        "inverse-on-surface": "#303032",
+                        "secondary-fixed": "#d7e2ff",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2c",
+                        "surface": "#131315",
+                        "tertiary-fixed": "#e1e0ff",
+                        "surface-container-low": "#1b1b1d",
+                        "surface-dim": "#131315",
+                        "tertiary-container": "#000000",
+                        "tertiary": "#c0c1ff",
+                        "outline-variant": "#4c4546",
+                        "on-secondary-fixed-variant": "#024590",
+                        "on-primary-container": "#757575",
+                        "on-secondary": "#002f66",
+                        "error-container": "#93000a",
+                        "secondary-container": "#024590",
+                        "on-tertiary-fixed": "#07006c",
+                        "on-background": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "on-surface": "#e4e2e4",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary": "#acc7ff",
+                        "surface-tint": "#c6c6c6",
+                        "outline": "#988e90",
+                        "on-secondary-fixed": "#001b3f",
+                        "surface-container-lowest": "#0e0e10",
+                        "surface-container": "#1f1f21",
+                        "secondary-fixed-dim": "#acc7ff",
+                        "on-tertiary": "#1000a9",
+                        "on-primary": "#303030",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#8fb5ff",
+                        "surface-container-highest": "#353437",
+                        "primary-container": "#000000",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-bright": "#39393b",
+                        "on-tertiary-container": "#6164ef",
+                        "surface-variant": "#353437",
+                        "on-primary-fixed-variant": "#474747",
+                        "primary-fixed": "#e2e2e2",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-surface-variant": "#cfc4c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "max-width": "1200px",
+                        "section-gap": "64px",
+                        "gutter": "16px",
+                        "container-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e4e2e4;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(30, 30, 32, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(172, 199, 255, 0.3);
+            background: rgba(42, 42, 44, 0.9);
+        }
+        .aura-glow {
+            background: radial-gradient(circle at center, rgba(124, 168, 249, 0.08) 0%, transparent 70%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #4c4546;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden custom-scrollbar">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/5 h-20">
+<div class="flex justify-between items-center px-container-padding h-full max-w-max-width mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-primary hover:opacity-80 transition-all p-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="font-headline-lg text-primary tracking-widest uppercase hidden md:block">Aura Concierge</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">YOUR DUBAI ITINERARY</h1>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-white/10">
+<img class="w-full h-full object-cover" data-alt="A sophisticated, high-end professional headshot of a luxury traveler, shot in a minimalist studio with soft, cinematic lighting. The individual has a confident, serene expression, wearing elegant charcoal-colored designer attire. The background is a deep, out-of-focus charcoal gray, complementing the premium, nocturnal aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrPMwZdCr9DGkdk7o4H-J_86YWB6B054SbWoGwVdsMyMxIYDhD7KCdmRp4Avx8eBC9hgrMWD0a-dwwOu6sIEKfNpUS1icVqnDXKmOQFhdwgpI2BcCFSUgYRiGA-UqJUaIGWp0rbsPa7uSO1MuUJTA5l0wjZBlE-0NIYYTxWcloMGma_5hza6iMXlYENpzBIVltWGNzv4lmXlLEA0_KsLu3PeA8ypb7W6HjMfZMIsbiUw_Mwbuqd7duLQ"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-32 px-container-padding max-w-max-width mx-auto relative">
+<!-- Background Atmospheric Aura -->
+<div class="fixed top-1/4 left-1/2 -translate-x-1/2 w-full h-[500px] aura-glow pointer-events-none -z-10"></div>
+<!-- Sticky Summary & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-6 mb-12">
+<div>
+<p class="text-secondary font-label-md uppercase tracking-wider mb-2">3 Days • Dubai, UAE</p>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Experience Excellence</h2>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 rounded-full border border-outline/20 font-label-md text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+                    Share
+                </button>
+<button class="px-8 py-3 rounded-full bg-secondary text-on-secondary font-label-md hover:brightness-110 transition-all shadow-lg shadow-secondary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                    Book All
+                </button>
+</div>
+</div>
+<!-- Itinerary Grid -->
+<div class="space-y-section-gap">
+<!-- Day 1 Section -->
+<section class="animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex items-center gap-4 mb-8">
+<span class="font-headline-lg text-secondary">01</span>
+<h3 class="font-headline-lg text-on-surface">Arrival &amp; Skyline</h3>
+<div class="h-px flex-1 bg-white/5 ml-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stay Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A panoramic view of the Burj Al Arab hotel at night, reflecting brilliantly on the calm waters of the Arabian Gulf. The sky is a deep midnight blue with hints of Dubai's city glow. The lighting is crisp and luxurious, highlighting the architectural curves of the structure. The overall mood is one of serene, high-end nocturnal luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMJuBxiIj8C-EOePKXvklRPFhb-8JTxPjm1VBTHo7eUFs1OvE79PcFesTiwI9TdM9G2wY3F1v2LrKqUSTdyXEu93xLEqmE6B9fPRFmmNEnP1J9nqLai1XSFUpetFEcmRXfzXAc229y-C93hNULGV7TKUOBkJEcZZw9EgWHuqVtdmCTzGqhFMdRdYiBNz07gXg2erVX1WPfwvPr5Kx_N_yyaLxBYUIj960NEuMoHfzZO2yGwqpGw7wJRQ"/>
+<div class="absolute top-4 left-4 bg-secondary/90 text-on-secondary px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Stay</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Burj Al Arab Jumeirah</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Ultra-luxury suite with floor-to-ceiling views of the Arabian Gulf.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Check-in: 14:00</span>
+<span class="text-secondary">Details →</span>
+</div>
+</div>
+</div>
+<!-- Dining Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="An exquisite fine-dining table setting at Al Mahara restaurant in Dubai. A shimmering, floor-to-ceiling aquarium filled with vibrant tropical fish forms the backdrop. The table is laid with crisp white linens, crystal glassware, and polished silver. Soft, blue-toned ambient lighting creates an intimate and technologically advanced atmosphere, consistent with luxury hospitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ9jgP_7tPZugojTTGGE1t6n90pOZsqqezaFVEOTW7LdZV88peJ0eckdSBZed5ZaXvURNUNbCyveO9uul9b85IKwZW4gVuQCqgj9rmEL_yhSQjXikUNl91S7CnP_lGdS3eOvK9xgWcScX2zSpcFrrQ6oVGHZ9e8em1i04ItU-xKupXbC71miNul3Pd9gftsu4lpNxsLLxTcsRv9wtDZD0l9FPFGXtFEVQGLBqbkcTcy95a6HUnt1ffxA"/>
+<div class="absolute top-4 left-4 bg-tertiary-fixed-dim/90 text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Dining</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Al Mahara</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Signature seafood experience centered around a massive floor-to-ceiling aquarium.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Dinner: 20:30</span>
+<span class="text-secondary">Menu →</span>
+</div>
+</div>
+</div>
+<!-- Activity Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="The breathtaking view from the observation deck of the Burj Khalifa, looking down at the illuminated sprawling city of Dubai at night. Thousands of golden lights trace the highways and skyscrapers. The aesthetic is cinematic and high-contrast, with deep blacks of the desert beyond and vibrant blue and gold highlights of the urban center." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOyEdnFP8c4CxkAL1lFiiM7TCPoKaMzWDiWZm0WrlA8AvgjgWkFVI11Uye2Bz4K9AyaapxXKC0OcE4MGC5_pWV0OfRiJXseWCaHXylLft4xpfjpUTMy4E0U6CTAC7M35x-hY_5-h4vNHFWQyhM5mROb92NMj7kdSwF_jONuDdv8UN5qC72igBu1J4bHocwXokDEd9aNPcVU-HIJbnE2L7S8n_xx6ed6xJuwBmhDWTR3hInAPLghKZoNQ"/>
+<div class="absolute top-4 left-4 bg-primary-fixed-dim/90 text-on-primary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Activity</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Burj Khalifa 'At the Top'</h4>
+<p class="text-on-surface-variant text-body-md mb-4">VIP entrance to the world's highest lounge for sunset cocktails and skyline views.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Entry: 18:00</span>
+<span class="text-secondary">Ticket Info →</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Day 2 Section -->
+<section class="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+<div class="flex items-center gap-4 mb-8">
+<span class="font-headline-lg text-secondary">02</span>
+<h3 class="font-headline-lg text-on-surface">Desert Heritage</h3>
+<div class="h-px flex-1 bg-white/5 ml-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stay Card (Continued) -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col border-secondary/20">
+<div class="h-48 overflow-hidden relative group">
+<div class="absolute inset-0 bg-secondary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-on-secondary font-label-md">Current Residence</span>
+</div>
+<img class="w-full h-full object-cover" data-alt="A luxury hotel infinity pool overlooking the Dubai Marina skyline at dusk. The water is perfectly still, reflecting the glowing purple and blue neon lights of the skyscrapers. The pool deck is made of dark, polished stone with minimalist white lounge chairs. The atmosphere is calm, exclusive, and technologically forward-thinking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5StQbAQTsMFlJ49veti_NeoATmytemaI-oS3zxt4Xnz9ZLS1Ae07j31zMHshYH-rE-cBojtpW-nFeITC_jvi0CA6fudKar3-kuMKn19PeJ_tXOEJit4KuL6R6DHVKiiCnl5_hqxrhisj7N-uCTVMKlVvXa90703FS5JWwLA96Ibkt9HR9FX6ncz6rdas1P3PcKifE0AHNb4ZcDFM-OgVnhr9Q677wd6acSU-s0Pta200GcXHzCSJEmA"/>
+<div class="absolute top-4 left-4 bg-secondary/90 text-on-secondary px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Stay</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Burj Al Arab Jumeirah</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Leisure morning at the Terrace infinity pool and private cabana.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Day 2 of 3</span>
+<span class="text-secondary">Concierge →</span>
+</div>
+</div>
+</div>
+<!-- Activity Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A vintage Land Rover driving across the rolling red sand dunes of the Dubai desert under a starlit sky. The headlights cut through the dark, highlighting the ripples in the sand. In the distance, a small, elegant desert camp is illuminated by warm lanterns. The visual style is atmospheric and cinematic, emphasizing the quiet majesty of the nocturnal desert." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ0H_h8f6MCT50Izq4Vvn0lgHyYVnHkrf4p8KCIfO3MAAcyzrsl3D6_zBWoVxOlhqhMyZHbITuOrX42a2UNcTyiOVp5GGx1e2fXe5qIKCyY9j01D72Cn96wLpUHwlGzGxmjkJSIAqw44C56bjkJnQNdPk7qQLYNHFhz25UGPTkC1ASK4YiUmwwIw0g0bnwBwVPIb04pDVvuVs3moMsKJ6FwyiEiq9h8vet4eOy8y8cSDe-fJpciqfnQA"/>
+<div class="absolute top-4 left-4 bg-primary-fixed-dim/90 text-on-primary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Activity</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Royal Desert Safari</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Private 4x4 dune journey followed by a traditional falconry display at sunset.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Start: 15:30</span>
+<span class="text-secondary">Map →</span>
+</div>
+</div>
+</div>
+<!-- Dining Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A luxurious desert dining experience under a clear, starry Dubai sky. A low wooden table is surrounded by plush, ethnic-patterned cushions on a Persian rug laid directly on the sand. The setting is intimate, lit by small flickering torches and a gentle blue ambient glow. The scene captures the blend of traditional Emirati heritage and modern luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwreINNEbtmblqKVMg2TtvIQpR94MAdlsM5NYlLliF3fYP7Q4V9Jnn-wflE2MK_blm-JTSWqQXaB-_Nz1v_8StZkzxgAgE25pnhL88MSaSn5aw49xmCtfr2rqaqYsEnM37y8SK9CM6MzsIO-Q9RQTJqNDAtfWRUOPyXm4q0GQC6OamseVV3ObJWbyALcKqA1z4vJHc2D5-EFRtZeWhNlgNXp197KEZJOiY9932pOh3hIAQXabHC_z4kA"/>
+<div class="absolute top-4 left-4 bg-tertiary-fixed-dim/90 text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Dining</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Sahara Royal Dinner</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Authentic multi-course Emirati banquet served in a private desert oasis.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Dinner: 21:00</span>
+<span class="text-secondary">Menu →</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Day 3 Section -->
+<section class="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+<div class="flex items-center gap-4 mb-8">
+<span class="font-headline-lg text-secondary">03</span>
+<h3 class="font-headline-lg text-on-surface">Modern Marvels</h3>
+<div class="h-px flex-1 bg-white/5 ml-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Activity Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="The Museum of the Future in Dubai, showing its iconic silver torus-shaped architecture with intricate Arabic calligraphy windows illuminated from within. The building sits against a deep indigo night sky. Modern, sleek landscaping and clean architectural lines create a futuristic, high-tech aesthetic. The color palette is dominated by cool silvers, blacks, and electric blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwjx7veFbcu5d9i3TrQq8w4jKmVx7wlqFeJLVqDq8mJQtKBI3a6OUuie2L2UitnM6DjW22u6Uuqtij8wp5QjLr_6GQtTrzFd4hqwEDYhKBfs54s0UB91Le3UXJZlZ6Mi3YHcPRMYNeUG5P-s6RUayLrhxVr5euRAmZiLCRcHjO43u_QEnf5i6JbUoNcWc6hPyB6iluFlH1SS_RX5HIjYVu32cYy8Bgxt9NZxrCwYuSGZ3oHG-Ib-hIew"/>
+<div class="absolute top-4 left-4 bg-primary-fixed-dim/90 text-on-primary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Activity</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Museum of the Future</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Fast-track entry into the world's most beautiful building and its immersive exhibits.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Entry: 10:30</span>
+<span class="text-secondary">E-Ticket →</span>
+</div>
+</div>
+</div>
+<!-- Dining Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A modern, high-end sushi bar in Dubai, where a chef in a minimalist black uniform is meticulously preparing delicate nigiri. The counter is dark basalt stone, and the lighting is focused and dramatic, highlighting the texture of the fresh fish. In the background, a subtle glow of neon blue adds a contemporary, urban touch to the premium setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXnH8tlxSfVAOGS8CH1feJwabsi8s2QlKQPRzrXUR46h7H2mOJG2unkjdSTzLQuC86Ez2cDh7vx3vkt3m-MWEgq46y6VWV2VlwCDXJJDDfWw-E9JULZ7w2-KIhT0BjsLBLyPKHf8VTzBK8DTwgt7latNvBRqNrAw1Eup--_C88FDLUF2vSZdHSeo79TkLZvDs-3ltSlrX1s630WX6vmFgDQfTkoZ0Pz2644FUqCeHHB_7-bMZIa56TkA"/>
+<div class="absolute top-4 left-4 bg-tertiary-fixed-dim/90 text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Dining</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Zuma Dubai</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Award-winning contemporary Japanese cuisine in the heart of DIFC.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Lunch: 13:00</span>
+<span class="text-secondary">Resy →</span>
+</div>
+</div>
+</div>
+<!-- Activity Card -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A luxury private yacht cruising past the illuminated Ain Dubai ferris wheel at BlueWaters Island. The yacht's deck is clean and white, with understated blue accent lighting. The ferris wheel is a giant circle of glowing white light against the dark sky. The water reflects the city's neon lights, creating a shimmering, high-energy nocturnal scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYXYHfAbN8N50vAtEmAFkGdvoZcatIDv_zj87wqzTCHkt9VhemR7hH_Lg3dDGq-CshvDiSNWUrCDARrulPdv8IPP4k8HqKPXt9OlcIJSVaU2F7iGdRZrFj_n4ENRJ6HSAsK2_PmEKiInLs9n4QMMDdPGGGKCHhefZQBQ4OhZHAGQVsuXIrWR6ZkNIm8OpNfu3dOvkLcqKjRzwNgMeCyIuTk0RmWYZw5xgPD9QQqHXX1Ae69NUGf0xorA"/>
+<div class="absolute top-4 left-4 bg-primary-fixed-dim/90 text-on-primary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Activity</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<h4 class="text-secondary font-label-md uppercase mb-2">Private Yacht Cruise</h4>
+<p class="text-on-surface-variant text-body-md mb-4">Final evening yacht cruise through the Dubai Marina and past BlueWaters Island.</p>
+<div class="mt-auto flex items-center justify-between text-label-sm">
+<span class="text-primary/60">Departure: 17:00</span>
+<span class="text-secondary">Captain →</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FAB Voice Hub -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 group">
+<div class="absolute inset-0 bg-secondary/20 blur-2xl rounded-full scale-150 animate-pulse"></div>
+<button class="relative w-16 h-16 rounded-full bg-secondary text-on-secondary shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-[32px]" data-icon="mic" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<div class="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+<div class="glass-card px-4 py-2 rounded-full text-label-sm text-primary">
+                    "Modify my itinerary"
+                </div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center h-20 px-8 pb-4 bg-surface-container-low/90 dark:bg-surface-container-low/90 backdrop-blur-md border-t border-white/5 z-50 rounded-t-xl shadow-2xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-secondary-container/20 rounded-full p-3 scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-3 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for adding subtle sound or haptic feedback triggers here
+            });
+        });
+
+        // Handle sticky header opacity on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-surface/95');
+            } else {
+                header.classList.remove('bg-surface/95');
+            }
+        });
+    </script>
+</body></html>
