@@ -3,6 +3,10 @@
 
 A multi-agent, AI-powered travel planner designed to curate personalized itineraries for trips to Dubai. 
 
+## 🌍 Live Demo
+- **Frontend (Vercel)**: [https://ai-multi-agent-chi.vercel.app/](https://ai-multi-agent-chi.vercel.app/)
+- **Backend API (Railway)**: [https://ai-multi-agent-production-d15b.up.railway.app/](https://ai-multi-agent-production-d15b.up.railway.app/)
+
 ## ✨ Features
 - **Multi-Agent Architecture**: Leverages specialized AI agents (Orchestrator, Destination, Logistics, Budget, and Review) using LangGraph to logically break down the planning process.
 - **Voice Dictation (Speech-to-Text)**: Speak your travel plans directly into the browser! Integrated with Groq's `whisper-large-v3` model.
