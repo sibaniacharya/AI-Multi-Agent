@@ -213,8 +213,9 @@ micBtn.addEventListener('click', async () => {
                         const promptInput = document.getElementById('prompt');
                         promptInput.value = data.text;
                     } else {
-                        console.error('Transcription failed');
-                        alert('Transcription failed. Please try again.');
+                        const errorData = await response.json().catch(() => ({}));
+                        console.error('Transcription failed:', errorData);
+                        alert(`Transcription failed: ${errorData.detail || 'Server error. Did you add your API keys to Railway?'}`);
                     }
                 } catch (error) {
                     console.error('Error:', error);
