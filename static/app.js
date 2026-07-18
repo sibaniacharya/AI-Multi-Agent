@@ -1,5 +1,5 @@
 // Define backend URL (Update with Railway URL when deployed)
-const API_BASE_URL = window.location.hostname === 'localhost' ? '' : 'https://YOUR_RAILWAY_URL_HERE.up.railway.app';
+const API_BASE_URL = window.location.hostname === 'localhost' ? '' : 'https://ai-multi-agent-production-d15b.up.railway.app';
 
 document.getElementById('trip-form').addEventListener('submit', function(e) {
     e.preventDefault();
