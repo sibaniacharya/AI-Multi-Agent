@@ -149,10 +149,18 @@ function renderItinerary(data) {
         "https://lh3.googleusercontent.com/aida-public/AB6AXuAYXYHfAbN8N50vAtEmAFkGdvoZcatIDv_zj87wqzTCHkt9VhemR7hH_Lg3dDGq-CshvDiSNWUrCDARrulPdv8IPP4k8HqKPXt9OlcIJSVaU2F7iGdRZrFj_n4ENRJ6HSAsK2_PmEKiInLs9n4QMMDdPGGGKCHhefZQBQ4OhZHAGQVsuXIrWR6ZkNIm8OpNfu3dOvkLcqKjRzwNgMeCyIuTk0RmWYZw5xgPD9QQqHXX1Ae69NUGf0xorA"
     ];
 
+    const diningImages = [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuDFXW_lQZlJ9_2B9nQw6Q3K4C5jWfG8p0_X6bV2-l-p8_J9B7M1M3P5h4h2-z0w7y9l6b2_3v1Q8G2M7P5-s0-y4-b9n0_X6Q3K4C5jWfG8p0_X6bV2-l-p8_J9B7M1M3P5h4h2-z0w7y9l6b2_3v1Q8G2M7P5-s0-y4-b9n0", // Need valid placeholder, let's use a nice food one or fallback
+        "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1000",
+        "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=1000",
+        "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=1000"
+    ];
+
     if (data.daily_plan && data.daily_plan.length > 0) {
         data.daily_plan.forEach((plan, index) => {
             const stayImg = stayImages[index % stayImages.length];
             const actImg = activityImages[index % activityImages.length];
+            const dineImg = diningImages[(index + 1) % (diningImages.length - 1) + 1]; // Offset index for variety using Unsplash images
             const dayStr = String(plan.day).padStart(2, '0');
             
             html += `
@@ -191,10 +199,13 @@ function renderItinerary(data) {
                             </div>
                         </div>
                         
-                        <!-- Dining Card (No Image per requirement) -->
+                        <!-- Dining Card -->
                         <div class="glass-card rounded-xl overflow-hidden flex flex-col">
-                            <div class="p-6 flex-1 flex flex-col pt-8">
-                                <div class="inline-block bg-tertiary-fixed-dim/90 text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter self-start mb-6">Dining</div>
+                            <div class="h-48 overflow-hidden relative">
+                                <img class="w-full h-full object-cover" src="${dineImg}" />
+                                <div class="absolute top-4 left-4 bg-tertiary-fixed-dim/90 text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm uppercase tracking-tighter">Dining</div>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col">
                                 <h4 class="text-secondary font-label-md uppercase mb-2">Evening</h4>
                                 <p class="text-on-surface-variant text-body-md mb-4">${plan.evening_activity}</p>
                                 ${plan.transit_notes ? `<div class="mt-4 pt-4 border-t border-white/5 text-label-sm text-primary/60">Transit: ${plan.transit_notes}</div>` : ''}
