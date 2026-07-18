@@ -114,7 +114,8 @@ function renderItinerary(data) {
     const selectedDest = locationSelect ? locationSelect.value : 'Dubai';
     const dest = data.destination || selectedDest;
     
-    const cost = data.total_estimated_cost || '0';
+    const costUsd = data.total_estimated_cost || 0;
+    const costAed = Math.round(costUsd * 3.67);
 
     let html = `
         <div class="flex flex-col md:flex-row justify-between items-end md:items-center gap-6 mb-12">
@@ -129,7 +130,7 @@ function renderItinerary(data) {
                 </button>
                 <button class="px-8 py-3 rounded-full bg-secondary text-on-secondary font-label-md hover:brightness-110 transition-all shadow-lg shadow-secondary/20 flex items-center gap-2">
                     <span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
-                    Book All ($${cost})
+                    Book All (AED ${costAed})
                 </button>
             </div>
         </div>
