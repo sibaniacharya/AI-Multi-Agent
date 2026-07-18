@@ -90,10 +90,16 @@ async def stream_plan_trip(prompt: str):
                 
         task = asyncio.create_task(run_graph())
         
+        get_task = None
         while True:
-            try:
-                # Wait for next item from the graph, timeout after 5 seconds to send a keep-alive
-                msg = await asyncio.wait_for(queue.get(), timeout=5.0)
+            if get_task is None:
+                get_task = asyncio.create_task(queue.get())
+                
+            done, pending = await asyncio.wait([get_task], timeout=5.0)
+            
+            if get_task in done:
+                msg = get_task.result()
+                get_task = None
                 
                 if msg["type"] == "done":
                     yield f"data: {json.dumps({'node': 'DONE', 'status': 'completed'})}\n\n"
@@ -120,8 +126,8 @@ async def stream_plan_trip(prompt: str):
 
                         yield f"data: {json.dumps(event_data)}\n\n"
                         
-            except asyncio.TimeoutError:
-                # Send a keep-alive comment to keep mobile connections open
+            else:
+                # Timeout occurred, send keep-alive
                 yield ": keepalive\n\n"
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

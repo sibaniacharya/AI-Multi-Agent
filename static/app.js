@@ -263,7 +263,13 @@ micBtn.addEventListener('click', async () => {
         // Start recording
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder = new MediaRecorder(stream);
+            let options = {};
+            if (MediaRecorder.isTypeSupported('audio/webm')) {
+                options = { mimeType: 'audio/webm' };
+            } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+                options = { mimeType: 'audio/mp4' };
+            }
+            mediaRecorder = new MediaRecorder(stream, options);
             
             mediaRecorder.ondataavailable = event => {
                 if (event.data.size > 0) {
@@ -272,8 +278,8 @@ micBtn.addEventListener('click', async () => {
             };
 
             mediaRecorder.onstop = async () => {
-                const mimeType = mediaRecorder.mimeType || 'audio/webm';
-                const fileExt = mimeType.includes('mp4') ? 'mp4' : (mimeType.includes('mpeg') ? 'mpeg' : 'webm');
+                const mimeType = mediaRecorder.mimeType || options.mimeType || 'audio/mp4';
+                const fileExt = mimeType.includes('webm') ? 'webm' : 'mp4';
                 const audioBlob = new Blob(audioChunks, { type: mimeType });
                 audioChunks = [];
                 
