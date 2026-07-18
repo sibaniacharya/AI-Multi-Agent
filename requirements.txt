@@ -10,3 +10,6 @@ requests
 pytest
 httpx
 python-multipart
+langchain-groq
+langchain-google-genai
+python-dotenv
