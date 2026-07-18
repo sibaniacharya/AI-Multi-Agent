@@ -108,7 +108,12 @@ function renderItinerary(data) {
     resultSection.classList.remove('hidden');
 
     const totalDays = data.daily_plan ? data.daily_plan.length : 0;
-    const dest = data.destination || 'Dubai';
+    
+    // Pull the destination from the dropdown, fallback to Dubai
+    const locationSelect = document.getElementById('location-select');
+    const selectedDest = locationSelect ? locationSelect.value : 'Dubai';
+    const dest = data.destination || selectedDest;
+    
     const cost = data.total_estimated_cost || '0';
 
     let html = `
